@@ -2,11 +2,13 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // useRouter এখন আর লাগছে না
 import { HiMenu, HiX } from "react-icons/hi";
 import { Button } from "@heroui/react"; // HeroUI v3 syntax
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname(); // বর্তমান পাথ ট্র্যাক করার জন্য
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -37,29 +39,55 @@ export default function Navbar() {
   return (
     <nav className="w-full bg-[#F8FAFC] border-b border-gray-100 sticky top-0 z-50 px-4 sm:px-8 py-3 font-mono">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        
         {/* Left Side: Logo Element */}
         <Logo />
 
         {/* Center Navigation: Links (Hidden on Mobile/Tablet, visible on Desktop) */}
         <div className="hidden md:flex items-center gap-8 text-[#475569]">
-          <Link href="/" className="hover:text-black transition-colors">Home</Link>
-          <Link href="/courses" className="hover:text-black transition-colors">Courses</Link>
-          <Link href="/add-course" className="hover:text-black transition-colors">Add Course</Link>
-          <Link href="/dashboard" className="hover:text-black transition-colors">Dashboard</Link>
+          <Link
+            href="/"
+            className={`transition-colors ${pathname === "/" ? "text-[#1A73E8] font-semibold" : "hover:text-black"}`}
+          >
+            Home
+          </Link>
+          <Link
+            href="/courses"
+            className={`transition-colors ${pathname === "/courses" ? "text-[#1A73E8] font-semibold" : "hover:text-black"}`}
+          >
+            Courses
+          </Link>
+          <Link
+            href="/add-course"
+            className={`transition-colors ${pathname === "/add-course" ? "text-[#1A73E8] font-semibold" : "hover:text-black"}`}
+          >
+            Add Course
+          </Link>
+          <Link
+            href="/dashboard"
+            className={`transition-colors ${pathname === "/dashboard" ? "text-[#1A73E8] font-semibold" : "hover:text-black"}`}
+          >
+            Dashboard
+          </Link>
         </div>
 
         {/* Right Side: Authentication Buttons (Desktop Layout) */}
         <div className="hidden md:flex items-center gap-6">
-          <Link href="/login" className="text-[#475569] hover:text-black transition-colors">
+          <Link
+            href="/login"
+            className={`transition-colors ${pathname === "/login" ? "text-[#1A73E8] font-semibold" : "text-[#475569] hover:text-black"}`}
+          >
             Login
           </Link>
-          <Button
-            radius="full"
-            className="bg-[#0070F3] text-white font-semibold px-6 py-2 shadow-[0_4px_14px_0_rgba(0,112,243,0.39)] transition-all duration-300 ease-in-out hover:bg-[#0061d5] hover:shadow-[0_6px_20px_rgba(0,112,243,0.47)] hover:-translate-y-0.5 active:translate-y-0"
-          >
-            Join Free
-          </Button>
+          
+          {/* Desktop "Join Free" Button wrapped with Link properly */}
+          <Link href="/signup">
+            <Button
+              radius="full"
+              className="bg-[#0070F3] text-white font-semibold px-6 py-2 shadow-[0_4px_14px_0_rgba(0,112,243,0.39)] transition-all duration-300 ease-in-out hover:bg-[#0061d5] hover:shadow-[0_6px_20px_rgba(0,112,243,0.47)] hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Join Free
+            </Button>
+          </Link>
         </div>
 
         {/* Mobile & Tablet Toggle Menu Button */}
@@ -77,24 +105,55 @@ export default function Navbar() {
       {/* Mobile Drawer Dropdown Menu Panel */}
       {isOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-[#F8FAFC] border-b border-gray-200 py-4 px-6 flex flex-col gap-4 shadow-lg transition-all duration-300">
-          <Link href="/" onClick={toggleMenu} className="text-[#475569] hover:text-black py-1">Home</Link>
-          <Link href="/courses" onClick={toggleMenu} className="text-[#475569] hover:text-black py-1">Courses</Link>
-          <Link href="/add-course" onClick={toggleMenu} className="text-[#475569] hover:text-black py-1">Add Course</Link>
-          <Link href="/dashboard" onClick={toggleMenu} className="text-[#475569] hover:text-black py-1">Dashboard</Link>
-          
+          <Link
+            href="/"
+            onClick={toggleMenu}
+            className={`py-1 ${pathname === "/" ? "text-[#1A73E8] font-semibold" : "text-[#475569] hover:text-black"}`}
+          >
+            Home
+          </Link>
+          <Link
+            href="/courses"
+            onClick={toggleMenu}
+            className={`py-1 ${pathname === "/courses" ? "text-[#1A73E8] font-semibold" : "text-[#475569] hover:text-black"}`}
+          >
+            Courses
+          </Link>
+          <Link
+            href="/add-course"
+            onClick={toggleMenu}
+            className={`py-1 ${pathname === "/add-course" ? "text-[#1A73E8] font-semibold" : "text-[#475569] hover:text-black"}`}
+          >
+            Add Course
+          </Link>
+          <Link
+            href="/dashboard"
+            onClick={toggleMenu}
+            className={`py-1 ${pathname === "/dashboard" ? "text-[#1A73E8] font-semibold" : "text-[#475569] hover:text-black"}`}
+          >
+            Dashboard
+          </Link>
+
           <hr className="border-gray-200 my-1" />
-          
+
           <div className="flex flex-col gap-3">
-            <Link href="/login" onClick={toggleMenu} className="text-center text-[#475569] hover:text-black py-2">
+            <Link
+              href="/login"
+              onClick={toggleMenu}
+              className={`text-center py-2 ${pathname === "/login" ? "text-[#1A73E8] font-semibold" : "text-[#475569] hover:text-black"}`}
+            >
               Login
             </Link>
-            <Button
-              radius="full"
-              className="bg-[#0070F3] text-white font-semibold w-full py-3 shadow-md hover:bg-[#0061d5]"
-              onClick={toggleMenu}
-            >
-              Join Free
-            </Button>
+            
+            {/* Mobile "Join Free" Button - FIXED WITH NATIVE LINK */}
+            <Link href="/signup" onClick={toggleMenu} className="w-full block">
+              <Button
+                radius="full"
+                className="bg-[#0070F3] text-white font-semibold w-full py-3 shadow-md hover:bg-[#0061d5]"
+              >
+                Join Free
+              </Button>
+            </Link>
           </div>
         </div>
       )}
