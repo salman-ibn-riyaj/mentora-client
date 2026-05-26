@@ -21,7 +21,9 @@ export default function DashboardPage() {
   }
 
 
-  if (!session) {
+  // ২. ইউজার যদি লগইন করা না থাকে (নিরাপদ চেকিং)
+// session অথবা session.user যদি না থাকে, তবেই সে রিডাইরেক্ট করবে
+if (!session || !session.user) {
     return (
       <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-white font-mono text-center p-4">
         <p className="text-sm font-semibold text-red-500">You are not authorized! ⚠️</p>

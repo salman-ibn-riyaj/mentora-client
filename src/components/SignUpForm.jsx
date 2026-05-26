@@ -66,7 +66,8 @@ export default function SignUpForm() {
 
         // ১.৫ সেকেন্ড পর হোম পেজে রিডাইরেক্ট করবে
         setTimeout(() => {
-          router.push("/");
+          // router.push("/");
+          window.location.href="/";
         }, 1500);
       },
       onError: (ctx) => {
