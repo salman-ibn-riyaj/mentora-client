@@ -80,15 +80,11 @@ export default function SignUpForm() {
   };
 
   const handleGoogleSignIn = async () => {
-    try {
-      await authClient.signIn.social({
-        provider: "google",
-        callbackURL: "/", // গুগল লগইন সফল হলে হোম পেজে নিয়ে যাবে
-      });
-    } catch (error) {
-      toast.error("Google Sign In failed");
-    }
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
   };
+  
 
   return (
     <div className="w-full max-w-md mx-auto p-6 sm:p-8 rounded-2xl border border-gray-100 bg-[#F8FAFC] shadow-md font-mono">
@@ -231,7 +227,7 @@ export default function SignUpForm() {
 
       {/* Google Sign In Button */}
       <Button
-        onPress={handleGoogleSignIn}
+        onClick={handleGoogleSignIn}
         variant="bordered"
         radius="xl"
         className="w-full border-gray-200 bg-white text-[#475569] font-medium hover:bg-gray-50 hover:text-black transition-colors"
