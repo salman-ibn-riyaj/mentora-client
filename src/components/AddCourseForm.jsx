@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { Button } from "@heroui/react";
 import { toast } from "react-hot-toast";
 
-import { 
-  HiOutlineDocumentText, 
-  HiOutlineBookOpen, 
-  HiOutlineLink, 
-  HiOutlineTag, 
-  HiOutlineCurrencyDollar, 
-  HiOutlineClock 
+import {
+  HiOutlineDocumentText,
+  HiOutlineBookOpen,
+  HiOutlineLink,
+  HiOutlineTag,
+  HiOutlineCurrencyDollar,
+  HiOutlineClock,
 } from "react-icons/hi";
 
 export default function AddCourseForm() {
@@ -26,7 +26,7 @@ export default function AddCourseForm() {
     price: "",
     duration: "",
   });
-  console.log(courseData)
+  console.log(courseData);
 
   const categories = [
     { value: "web-development", label: "Web Development" },
@@ -42,16 +42,21 @@ export default function AddCourseForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // ১. ফ্রন্টএন্ড ভ্যালিডেশন চেক
     const hasValidTitle = courseData.title.trim().length > 4;
     const hasValidDescription = courseData.description.trim().length > 10;
     const hasCategory = courseData.category !== "";
     const hasValidPrice = Number(courseData.price) >= 0;
 
-    if (!hasValidTitle || !hasValidDescription || !hasCategory || !hasValidPrice) {
+    if (
+      !hasValidTitle ||
+      !hasValidDescription ||
+      !hasCategory ||
+      !hasValidPrice
+    ) {
       toast.error("Validation Failed! Please check your inputs.");
-      return; 
+      return;
     }
 
     // ২. ভ্যালিডেশন পাস হলে লোডিং স্টেট ও টোস্ট চালু হবে
@@ -59,35 +64,36 @@ export default function AddCourseForm() {
     const toastId = toast.loading("Publishing your course to database...");
 
     try {
-      // 🚀 ডিফল্ট fetch দিয়ে মঙ্গোডিবি/ব্যাকএন্ড এপিআই কল
-      const response = await fetch('http://localhost:5001/courses', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5001/courses", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(courseData),
       });
 
       const data = await response.json();
 
-      // ৩. রেসপন্স সফল (status 200-299) হলে তবেই সাকসেস টোস্ট দেখাবে
       if (response.ok) {
         toast.dismiss(toastId);
-        toast.success("Course published successfully to MongoDB! 🚀");
-        
-        // ফর্ম ক্লিয়ার করা
-        setCourseData({ title: "", description: "", thumbnailUrl: "", category: "", price: "", duration: "" });
-        
+        toast.success("Course published successfully");
+
+        setCourseData({
+          title: "",
+          description: "",
+          thumbnailUrl: "",
+          category: "",
+          price: "",
+          duration: "",
+        });
+
         setTimeout(() => {
           router.push("/courses");
         }, 1500);
       } else {
-        // সার্ভার থেকে কোনো এরর মেসেজ পাঠালে সেটা দেখাবে
         throw new Error(data.message || "Failed to save course");
       }
-
     } catch (error) {
-      // নেটওয়ার্ক এরর বা throw করা এরর হ্যান্ডেল করবে
       toast.dismiss(toastId);
       toast.error(error.message || "Something went wrong. Try again.");
     } finally {
@@ -112,10 +118,11 @@ export default function AddCourseForm() {
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        
         {/* Course Title */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">Course Title</label>
+          <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">
+            Course Title
+          </label>
           <div className="relative flex items-center">
             <span className="absolute left-3 text-xl text-[#475569]">
               <HiOutlineDocumentText />
@@ -134,7 +141,9 @@ export default function AddCourseForm() {
 
         {/* Description */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">Description</label>
+          <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">
+            Description
+          </label>
           <textarea
             name="description"
             rows="4"
@@ -150,7 +159,9 @@ export default function AddCourseForm() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Thumbnail URL */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">Thumbnail URL</label>
+            <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">
+              Thumbnail URL
+            </label>
             <div className="relative flex items-center">
               <span className="absolute left-3 text-xl text-[#475569]">
                 <HiOutlineLink />
@@ -169,7 +180,9 @@ export default function AddCourseForm() {
 
           {/* Category Dropdown */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">Category</label>
+            <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">
+              Category
+            </label>
             <div className="relative flex items-center">
               <span className="absolute left-3 text-xl text-[#475569]">
                 <HiOutlineTag />
@@ -181,12 +194,18 @@ export default function AddCourseForm() {
                 required
                 className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#0070F3] focus:ring-1 focus:ring-[#0070F3] transition-all appearance-none cursor-pointer text-gray-700"
               >
-                <option value="" disabled className="text-gray-300">Select a category</option>
+                <option value="" disabled className="text-gray-300">
+                  Select a category
+                </option>
                 {categories.map((cat) => (
-                  <option key={cat.value} value={cat.value}>{cat.label}</option>
+                  <option key={cat.value} value={cat.value}>
+                    {cat.label}
+                  </option>
                 ))}
               </select>
-              <span className="absolute right-3 pointer-events-none text-gray-400 text-xs">▼</span>
+              <span className="absolute right-3 pointer-events-none text-gray-400 text-xs">
+                ▼
+              </span>
             </div>
           </div>
         </div>
@@ -195,7 +214,9 @@ export default function AddCourseForm() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Price */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">Price ($)</label>
+            <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">
+              Price ($)
+            </label>
             <div className="relative flex items-center">
               <span className="absolute left-3 text-xl text-[#475569]">
                 <HiOutlineCurrencyDollar />
@@ -216,7 +237,9 @@ export default function AddCourseForm() {
 
           {/* Duration */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">Duration</label>
+            <label className="text-xs font-semibold uppercase tracking-wider text-[#475569]">
+              Duration
+            </label>
             <div className="relative flex items-center">
               <span className="absolute left-3 text-xl text-[#475569]">
                 <HiOutlineClock />
@@ -253,7 +276,6 @@ export default function AddCourseForm() {
             {loading ? "Publishing..." : "Publish Course"}
           </Button>
         </div>
-
       </form>
     </div>
   );
