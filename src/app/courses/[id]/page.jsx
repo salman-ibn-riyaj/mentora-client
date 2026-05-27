@@ -5,6 +5,8 @@ const CourseDetailPage = async({params}) => {
     const {id} = await params;
     console.log(id);
 
+    
+
     const res = await fetch(`http://localhost:5001/courses/${id}`);
     const courseData = await res.json();
     console.log(courseData)

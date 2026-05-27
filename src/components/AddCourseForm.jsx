@@ -13,6 +13,7 @@ import {
   HiOutlineCurrencyDollar,
   HiOutlineClock,
 } from "react-icons/hi";
+import { authClient } from "@/lib/auth-client";
 
 export default function AddCourseForm() {
   const router = useRouter();
@@ -43,7 +44,6 @@ export default function AddCourseForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ১. ফ্রন্টএন্ড ভ্যালিডেশন চেক
     const hasValidTitle = courseData.title.trim().length > 4;
     const hasValidDescription = courseData.description.trim().length > 10;
     const hasCategory = courseData.category !== "";
@@ -59,15 +59,21 @@ export default function AddCourseForm() {
       return;
     }
 
-    // ২. ভ্যালিডেশন পাস হলে লোডিং স্টেট ও টোস্ট চালু হবে
     setLoading(true);
     const toastId = toast.loading("Publishing your course to database...");
+
+   const {data:tokenData} = await authClient.token();
+   console.log(tokenData)
+   const jwtToken = tokenData.token;
+   console.log(jwtToken, 'onek jalacce')
+    
 
     try {
       const response = await fetch("http://localhost:5001/courses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${jwtToken}`,
         },
         body: JSON.stringify(courseData),
       });
