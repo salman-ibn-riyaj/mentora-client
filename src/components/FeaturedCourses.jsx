@@ -6,7 +6,7 @@ import FeaturedCard from "./FeaturedCard";
 
 export default async function FeaturedCourses() {
 
-    const res = await fetch('http://localhost:5001/featuredCourses');
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/featuredCourses`);
     const courses = await res.json();
     console.log(courses)
   return (

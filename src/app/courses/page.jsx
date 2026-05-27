@@ -14,8 +14,8 @@ export default function Courses() {
     try {
       // আপনার পোর্ট ৫০MDE১ এবং ডিরেক্ট /courses ইউআরএল
       const url = searchTerm 
-        ? `http://localhost:5001/courses?title=${encodeURIComponent(searchTerm)}` 
-        : `http://localhost:5001/courses`;
+        ? `${process.env.NEXT_PUBLIC_SERVER_URL}/courses?title=${encodeURIComponent(searchTerm)}` 
+        : `${process.env.NEXT_PUBLIC_SERVER_URL}/courses`;
 
       const res = await fetch(url);
       const data = await res.json();

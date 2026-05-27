@@ -69,7 +69,7 @@ export default function AddCourseForm() {
     
 
     try {
-      const response = await fetch("http://localhost:5001/courses", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/courses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

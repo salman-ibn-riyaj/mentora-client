@@ -12,7 +12,7 @@ const CourseDetailPage = async({params}) => {
 
 
 
-    const res = await fetch(`http://localhost:5001/courses/${id}`,{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/courses/${id}`,{
       headers: {
         "Authorization":`Bearer ${token}`
       }
