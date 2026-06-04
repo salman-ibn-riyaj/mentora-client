@@ -66,16 +66,16 @@ export default function LoginForm() {
     setLoading(false);
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      await authClient.signIn.social({
-        provider: "google",
-        callbackURL: "/", // গুগল লগইন সফল হলে হোম পেজে নিয়ে যাবে
-      });
-    } catch (error) {
-      toast.error("Google Sign In failed");
-    }
-  };
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     await authClient.signIn.social({
+  //       provider: "google",
+  //       callbackURL: "/", // গুগল লগইন সফল হলে হোম পেজে নিয়ে যাবে
+  //     });
+  //   } catch (error) {
+  //     toast.error("Google Sign In failed");
+  //   }
+  // };
 
   return (
     <div className="w-full max-w-md mx-auto p-6 sm:p-8 rounded-2xl border border-gray-100 bg-[#F8FAFC] shadow-md font-mono">
@@ -161,7 +161,7 @@ export default function LoginForm() {
       </div>
 
       {/* Google Sign In Button */}
-      <Button
+      {/* <Button
         onPress={handleGoogleSignIn}
         variant="bordered"
         radius="xl"
@@ -169,7 +169,7 @@ export default function LoginForm() {
         startContent={<FcGoogle className="text-xl" />}
       >
         Sign in with Google
-      </Button>
+      </Button> */}
 
       {/* Don't have an account link */}
       <p className="text-center text-sm text-[#475569] mt-6">

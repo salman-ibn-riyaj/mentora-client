@@ -80,11 +80,11 @@ export default function SignUpForm() {
     setLoading(false);
   };
 
-  const handleGoogleSignIn = async () => {
-    const data = await authClient.signIn.social({
-      provider: "google",
-    });
-  };
+  // const handleGoogleSignIn = async () => {
+  //   const data = await authClient.signIn.social({
+  //     provider: "google",
+  //   });
+  // };
   
 
   return (
@@ -227,7 +227,7 @@ export default function SignUpForm() {
       </div>
 
       {/* Google Sign In Button */}
-      <Button
+      {/* <Button
         onClick={handleGoogleSignIn}
         variant="bordered"
         radius="xl"
@@ -235,7 +235,7 @@ export default function SignUpForm() {
         startContent={<FcGoogle className="text-xl" />}
       >
         Sign up with Google
-      </Button>
+      </Button> */}
 
       {/* Already have an account link */}
       <p className="text-center text-sm text-[#475569] mt-6">
