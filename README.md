@@ -6,6 +6,9 @@ Welcome to the frontend repository of **Mentora**. This is a modern, responsive 
 
 ---
 
+<img width="1921" height="3433" alt="screencapture-mentora-client-beta-vercel-app-2026-06-04-23_55_32" src="https://github.com/user-attachments/assets/02c96b0c-df19-4c41-a607-142133e11371" />
+
+
 ## 🛠️ Tech Stack
 
 This client-side application utilizes the following technologies:
